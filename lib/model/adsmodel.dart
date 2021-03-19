@@ -1,18 +1,16 @@
-class BodyModel {
+class AdsModel {
+  int adsid;
   String title;
   String contents;
-  int categoryid;
-  int userid;
-  int bodyid;
+  String img;
   String createdat;
   String updatedat;
 
-  BodyModel({
+  AdsModel({
+    this.adsid,
     this.title,
     this.contents,
-    this.categoryid,
-    this.userid,
-    this.bodyid,
+    this.img,
     this.createdat,
     this.updatedat,
   });

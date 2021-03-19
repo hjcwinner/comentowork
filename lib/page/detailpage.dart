@@ -2,9 +2,6 @@ import 'package:comentowork/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
-
-
 class Detail extends StatefulWidget {
   final String id;
   Detail({this.id});

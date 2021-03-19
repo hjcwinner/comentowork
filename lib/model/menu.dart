@@ -1,7 +1,7 @@
 class CategoryModel{
 
-  String categoryName;
-  String cuserid;
+  String ctgrname;
+  int ctgrid;
 
-  CategoryModel({this.categoryName, this.cuserid});
+  CategoryModel({this.ctgrid, this.ctgrname});
 }
