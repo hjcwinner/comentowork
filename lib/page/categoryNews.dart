@@ -4,28 +4,22 @@ import 'package:comentowork/model/menu.dart';
 import 'package:comentowork/repository/repository.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import 'package:comentowork/model/menu.dart';
-
-import 'categoryNews.dart';
 import 'detailpage.dart';
 
+class Categorynews extends StatefulWidget {
 
-class Login extends StatefulWidget {
-  final String id;
-  Login({this.id});
+  final String cuserid;
+  Categorynews({this.cuserid});
+
   @override
-  _LoginState createState() => _LoginState();
+  _CategorynewsState createState() => _CategorynewsState();
 }
 
-class _LoginState extends State<Login> {
-  static final storage = FlutterSecureStorage();
-  //데이터를 이전 페이지에서 전달 받은 정보를 저장하기 위한 변수
-  String id;
+class _CategorynewsState extends State<Categorynews> {
 
-  List<CategoryModel> categories = List<CategoryModel>();
+  
   List<BodyModel> bodyModel = List<BodyModel>();
+  List<CategoryModel> categories = List<CategoryModel>();
 
   bool _loading = true;
 
@@ -33,14 +27,13 @@ class _LoginState extends State<Login> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    id = widget.id; //widget.id는 LogOutPage에서 전달받은 id를 의미한다.
-    categories = getCategories();
-    getBody();
+    getcategoryBody();
   }
 
-  getBody() async {
-    BodyContent bodyContent = BodyContent();
-    await bodyContent.getNews();
+   getcategoryBody() async {
+    CategoryNews bodyContent = CategoryNews();
+    await bodyContent.getcategoriNews(widget.cuserid);
+    categories = getCategories();
     bodyModel = bodyContent.news;
     setState(() {
       _loading = false;
@@ -74,17 +67,17 @@ class _LoginState extends State<Login> {
                         itemBuilder: (context, index) {
                           return CatgoryTile(
                             categoryName: categories[index].categoryName,
-                            cuserid: categories[index].cuserid
+                            cuserid: categories[index].cuserid,
                           );
                         }),
                   ),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        id + "님 안녕하세요",
-                        style: TextStyle(fontSize: 30),
-                      )),
-                  // BodyContent
+                  // Align(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: Text(
+                  //       "님 안녕하세요",
+                  //       style: TextStyle(fontSize: 30),
+                  //     )),
+                  // // BodyContent
                   Container(
                     padding: EdgeInsets.only(top: 16),
                     child: ListView.builder(
@@ -97,7 +90,7 @@ class _LoginState extends State<Login> {
                             contents: bodyModel[index].contents,
                             userid: bodyModel[index].userid.toString(),
                             bodyid: bodyModel[index].bodyid.toString(),
-                            categoryid: bodyModel[index].categoryid.toString()
+                            categoryid: bodyModel[index].categoryid.toString(),
                           );
                         }),
                   )
@@ -105,6 +98,7 @@ class _LoginState extends State<Login> {
               )),
             ),
     );
+    
   }
 }
 
